@@ -11,12 +11,11 @@ const EventList = (props) => {
     return (
 
         <div>
-            <Accordion >
             <Accordion.Item eventKey="0">
                 <Accordion.Header style={{backgroundColor: "#31434f"}}>Events</Accordion.Header>
                 <Accordion.Body
                     style={{width: "100%", height: "100%", overflowY: "scroll", backgroundColor: "#31434f"}}>
-                    <div style={{width: "100%", maxHeight: "32vh", height: "auto", overflowY: "scroll"}}>
+                    <div style={{width: "100%", maxHeight: "68vh", height: "auto", overflowY: "scroll"}}>
                         <Row>
                             <Col>
                                 <Button
@@ -86,7 +85,6 @@ const EventList = (props) => {
 
                 </Accordion.Body>
             </Accordion.Item>
-            </Accordion>
 
         </div>
 

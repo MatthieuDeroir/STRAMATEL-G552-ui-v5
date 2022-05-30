@@ -300,10 +300,10 @@ export default class Home extends Component {
     render() {
         return (
             //
-            <div className="container-fluid position-relative">
-                <Row className={"container-fluid"}>
-                    <Col>
-
+            <div className="container">
+                <Row >
+                    <Col sm={5} >
+                        <Accordion>
                             <FileList files={this.state.files}
                                       updateCurrentFile={this.updateCurrentFile}
                                       modifyCurrentFile={this.modifyCurrentFile}
@@ -317,28 +317,35 @@ export default class Home extends Component {
                                        importEvent={this.importEvent}
                                        displayEvent={this.displayEvent}
                             />
+                        </Accordion>
 
                     </Col>
                         {/*</Col>*/}
-                        <Col lg={7} className={"m1"}>
+                        <Col className={"m1"}>
                             {this.state.isFileSelected ?
                                 <Col>
                                     <FileSingle file={this.state.currentFile}/>
                                 </Col>
-                                : null}
-                            {this.state.isEventSelectedForModification ?
+                                :
+                            this.state.isEventSelectedForModification ?
                                 <Col> <EventMod event={this.state.currentEvent}/> </Col>
-                                : null}
-                            {this.state.importEvent ?
+                                :
+                            this.state.importEvent ?
                                 <Col><EventForm fFD={this.state.fileForDisplay} default={this.state.default}/></Col>
-                                : null}
-                            {this.state.isEventSelected ?
+                                :
+                            this.state.isEventSelected ?
                                 <Col style={{width: "100vh"}}><EventSingle event={this.state.currentEvent}/></Col>
 
-                                : null}
-                            {this.state.importFile ?
+                                :
+                            this.state.importFile ?
                                 <Col><FileForm file={this.state.selectedFile}/></Col>
-                                : null}
+                                :
+                                <Col>
+                                    <div>
+                                        <img src="../../../public/assets/img/STRAMATEL-LOGO-dark.png" alt=""/>
+                                    </div>
+                                </Col>
+                            }
                         </Col>
                 </Row>
             </div>

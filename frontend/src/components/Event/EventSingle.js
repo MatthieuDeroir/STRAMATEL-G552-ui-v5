@@ -11,12 +11,12 @@ const EventSingle = (props) => {
         return (
             <div>
                 <h2 style={{textAlign:"center"}}> {props.event.name}</h2>
-                <Carousel fade key={`${props.event._id}`} lg={{width: "624px", height:"350px"}} >
+                <Carousel fade key={`${props.event._id}`} style={{maxWidth: "624px", width: "auto", height:"350px"}} >
                     {
                         props.event.files.map((item) => //dans l'idéal, height est dépendante = width/(screen_res)
                                                         //screen_res étant la résolution du panneau
                                                         //pour prévisualisation réaliste des médias
-                            <Carousel.Item interval={item.duration} lg={{width: "624px", height:"350px"}}>
+                            <Carousel.Item interval={item.duration} style={{width: "624px", height:"350px"}}>
                                     {(() => {
                                         switch (item.type) {
                                             case "image":
