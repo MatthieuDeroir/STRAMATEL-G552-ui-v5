@@ -7,7 +7,6 @@ const Event = mongoose.model(
     new mongoose.Schema({
         index: Number,
         name: String,
-        duration: Number,
         _user: String,
         files: [],
 

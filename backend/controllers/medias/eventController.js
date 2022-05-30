@@ -42,7 +42,7 @@ export const updateEvent = (req, res) => {
 }
 
 export const deleteEvent = (req, res) => {
-    Event.remove({_id: req.params.EventId}, (err, Event) => {
+    Event.deleteOne({_id: req.params.EventId}, (err, Event) => {
         if (err) {
             res.send(err);
         }
