@@ -1,4 +1,4 @@
-import React, { setState } from 'react';
+import React from 'react';
 import axios from "axios";
 import authService from "../../services/authService";
 import SelectableCardList from "../utils/selectableCards";
@@ -60,6 +60,8 @@ class EventForm extends React.Component {
 
     saveFiles(filesSaved){
 
+        console.log(filesSaved)
+
         var fileArray = [0];
 
         console.log(filesSaved)
@@ -70,6 +72,8 @@ class EventForm extends React.Component {
         console.log(tmp[filesSaved[0]])
 
         for (let i = 0; i < filesSaved.length; i++){
+            console.log(filesSaved)
+
             fileArray[i] = tmp[filesSaved[i]]
         }
 
@@ -121,7 +125,7 @@ class EventForm extends React.Component {
                     </div>
                     {/*<Example cardContents={this.props.fFD != "" ? this.initDisplayImgJSON(this.props.fFD) : this.props.default} value={this.state.value} onChangeValue={this.handleChangeValue} multiple/>*/}
                 </div>
-                <button className="card" onClick={(e) => this.saveFiles.bind(this.state.selected)}>
+                <button className="card" onClick={(e) => this.saveFiles(this.state.selected)}>
                     Créer l'évenement
                 </button>
 
