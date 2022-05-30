@@ -1,18 +1,29 @@
 import { useRef } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
+import { Row, Col } from 'react-bootstrap'
 
 const ItemTypes = {
     FILE: 'file',
 }
 const style = {
-    border: '1px dashed gray',
+    border: '1px solid gray',
     padding: '0.5rem 1rem',
     marginBottom: '.5rem',
-    backgroundColor: 'white',
+    backgroundColor: '#203038',
     cursor: 'move',
+    width: "100%",
 }
-export const Card = ({ _id, path, format, index, moveCard }) => {
+export const Card = ({ _id, name, path, format, duration, index, moveCard }) => {
     const ref = useRef(null)
+
+    // const nameChange = (e) => {
+    //     name = e.target.value
+    // }
+
+    const saveChanges = (e) => {
+
+    }
+
     const [{ handlerId }, drop] = useDrop({
         accept: ItemTypes.FILE,
         collect(monitor) {
@@ -24,6 +35,7 @@ export const Card = ({ _id, path, format, index, moveCard }) => {
             if (!ref.current) {
                 return
             }
+
             const dragIndex = item.index
             const hoverIndex = index
             // Don't replace items with themselves
@@ -57,7 +69,12 @@ export const Card = ({ _id, path, format, index, moveCard }) => {
             // but it's good here for the sake of performance
             // to avoid expensive index searches.
             item.index = hoverIndex
+            console.log(name)
+
         },
+        changeName(){
+
+        }
     })
     const [{ isDragging }, drag] = useDrag({
         type: ItemTypes.FILE,
@@ -71,16 +88,30 @@ export const Card = ({ _id, path, format, index, moveCard }) => {
     const opacity = isDragging ? 0 : 1
     drag(drop(ref))
     return (
-        <div ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId}>
+        <Row ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId}>
+            <Col xs={2}>
+                <Row xs={2}></Row>
+               <div style={{color:"white", fontSize:"30px", position:"middle"}}>#{`${index + 1}`}</div>
+            </Col>
+            <Col>
             { (() => {
                     switch(format){
                         default: return 0;
                         case "image" :
-                            return <img src={`${path}`} alt="" style={{width:"60px"}}/>
+                            return <img src={`${path}`} alt="" style={{maxWidth:"33%", maxHeight: "100%"}}/>
                         case "video" :
-                            return <video src={`${path}`} alt="" style={{width:"60px"}}/>
+                            return <video src={`${path}`} alt="" style={{maxWidth:"33%", maxHeight: "100%"}}/>
                     }
-            })}
-        </div>
+            }) () }
+            </Col>
+            <Col>
+                <form action="">
+
+                    <input type="text" />
+
+                    {/*<Button onClick={}>HELLO</Button>*/}
+                </form>
+            </Col>
+        </Row>
     )
 }

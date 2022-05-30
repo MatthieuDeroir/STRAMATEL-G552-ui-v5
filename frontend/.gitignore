@@ -18,6 +18,9 @@
 .env.test.local
 .env.production.local
 
+# heavy data
+/public/medias/*/*
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

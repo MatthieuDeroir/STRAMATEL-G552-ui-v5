@@ -18,7 +18,6 @@ class EventForm extends React.Component {
         await axios.post('http://localhost:4000/events', {
             name: this.refs.eventname.value,
             files: this.state.files,
-            duration: 5,
             _user: authService.getCurrentUser().username
         })
             .then((reponse) => {
@@ -119,14 +118,12 @@ class EventForm extends React.Component {
                             maxSelectable={28}
                             contents={this.props.fFD != "" ? this.initDisplayImgJSON(this.props.fFD) : this.props.default}
                             onChange={this.onListChanged.bind(this)}/>
-
                     </div>
                     {/*<Example cardContents={this.props.fFD != "" ? this.initDisplayImgJSON(this.props.fFD) : this.props.default} value={this.state.value} onChangeValue={this.handleChangeValue} multiple/>*/}
                 </div>
-                <button className="card" onClick={(e) => this.saveFiles(this.state.selected)}>
-                    Get selected
+                <button className="card" onClick={(e) => this.saveFiles.bind(this.state.selected)}>
+                    Créer l'évenement
                 </button>
-                <button className="btn-large waves-effect blue-grey darken-4 waves-orange">Add Event</button>
 
             </form>
 

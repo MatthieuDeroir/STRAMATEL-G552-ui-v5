@@ -4,35 +4,8 @@ import Button from 'react-bootstrap/Button'
 
 const FileSingle = (props) => {
     return (
-    // <div>
-    //     <div className="row">
-    //         <div className="col s12">
-    //             <div className="card">
-    //                 <div className="card-image">
-    //                     { (() => {
-    //                         switch (props.file.type) {
-    //                             case "image":
-    //                                 return <img src={`${props.file.path}`} alt="image"/>;
-    //                             case "video":
-    //                                 return <video src={`${props.file.path}`} autoPlay="1" muted="1" style={{width:"100%"}} loop/>;
-    //                             default:
-    //                                 return <p>Invalid Format</p>;
-    //                         }
-    //                     }) ()}
-    //                         <span className="card-title">{props.file.name}</span>
-    //                 </div>
-    //                 <div className="card-content">
-    //
-    //                 </div>
-    //                 <div className="card-action">
-    //                     <a href="#">Modifier</a>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     </div>
-    // </div>
 
-    <Card text={"light"} bg={"dark"} style={{ width: '90%' }}>
+    <Card text={"light"} bg={"dark"} >
         { (() => {
             switch (props.file.type) {
                 case "image":

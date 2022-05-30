@@ -75,6 +75,7 @@ class FileForm extends React.Component {
                             name: _name,
                             type: _type,
                             _user: __user,
+                            duration: 5,
                             path: `../medias/${__user}/${_hashedName}.${_format}`,
                         }
                     );
