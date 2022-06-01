@@ -4,6 +4,7 @@ import {Card} from './Card.js'
 import AuthService from '../../../services/authService'
 import axios from 'axios'
 import Button from "react-bootstrap/Button";
+import { Row, Col } from "react-bootstrap";
 
 const style = {
 
@@ -52,6 +53,7 @@ export const Container = (props) => {
         }, [])
         const renderCard = useCallback((card, index) => {
             card.index = index
+            console.log(card.duration)
 
             return (
                 <Card
@@ -70,22 +72,29 @@ export const Container = (props) => {
 
         if (cards){
             return (
-                <>
+                <div>
                     {/* introduire ici return EVENT changeName && return  FILE changeOrder
                     EVENT et FILE ne sont pas le meme objet :)
                     se réferer à : https://react-dnd.github.io/react-dnd/docs/api/use-drop
                     */}
                     <div style={{display: "flex",
-                        backgroundColor:"#d2d2d2",
-                        justifyContent: "space-around",
-                        flexDirection: "column",
+                        justifyContent: "center",
+                        flexDirection: "row",
                         flexWrap: "wrap",
                         height: "100%",
-                        padding: "20px"}}>{cards.map((card, i) => renderCard(card, i))}</div>
-                    <Button onClick={updateEvent.bind("ok",cards)}>
-                        Enregistrer
-                    </Button>
-                </>
+                        width:"100%",
+                        backgroundColor: "#203038",
+                        padding: "20px"}}> <h2 style={{color: "white"}}> Modification de l'ordre </h2>
+                        {cards.map((card, i) => renderCard(card, i))}
+                        <Button variant={"light"} onClick={updateEvent.bind("ok",cards)}>
+                            Enregistrer
+                        </Button>
+                    </div>
+                    <Row className={"justify-content-center"}>
+
+                    </Row>
+
+                </div>
             )
         }
 

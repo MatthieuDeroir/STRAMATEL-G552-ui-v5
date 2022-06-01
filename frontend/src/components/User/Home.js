@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Col, Row} from 'react-bootstrap';
 import UserService from "../../services/userService";
+import "../App.css"
 
 
 import FileList from '../File/FileList';
@@ -10,13 +11,16 @@ import FileForm from '../File/FileForm';
 import EventList from '../Event/EventList';
 import EventSingle from '../Event/EventSingle';
 import EventForm from '../Event/EventForm';
-import EventMod from '../Event/EventMod';
+import EventMod from '../Event/EventMod/EventMod';
+
 
 
 import axios from "axios";
 import authService from "../../services/authService";
-import Accordion from "react-bootstrap/Accordion";
-
+// import Accordion from "react-bootstrap/Accordion";
+import Accordion from "@mui/material/Accordion";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
 export default class Home extends Component {
     constructor(props) {
@@ -273,8 +277,25 @@ export default class Home extends Component {
         console.log(item)
     }
 
-    displayEvent(item) {
-        this.convertToJSON(item);
+    async displayEvent(item) {
+
+            this.convertToJSON(item)
+
+            await axios.put('http://localhost:4000/display/:DisplayId', {
+                Ordre: {
+                    "Type": "Media",
+                    "Nom": item.name,
+                },
+                date: Date.now(),
+                events: item
+            })
+                .then((reponse) => {
+                    console.log(reponse);
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+
     }
 
 
@@ -302,8 +323,37 @@ export default class Home extends Component {
             //
             <div className="container">
                 <Row >
-                    <Col sm={5} >
-                        <Accordion>
+
+                    <Col className={"m1"}>
+                        {this.state.isFileSelected ?
+                            <Col>
+                                <FileSingle file={this.state.currentFile}/>
+                            </Col>
+                            :
+                            this.state.isEventSelectedForModification ?
+                                <Col> <EventMod event={this.state.currentEvent}/> </Col>
+                                :
+                                this.state.importEvent ?
+                                    <Col><EventForm fFD={this.state.fileForDisplay} default={this.state.default}/></Col>
+                                    :
+                                    this.state.isEventSelected ?
+                                        <Col> <EventSingle event={this.state.currentEvent}/></Col>
+
+                                        :
+                                        this.state.importFile ?
+                                            <Col><FileForm file={this.state.selectedFile}/></Col>
+                                            : null
+                                            // <Card text={"light"} bg={"dark"} >
+                                            //     <img src="../assets/img/STRAMATEL-LOGO-dark.png" alt=""/>
+                                            //     <Card.Body>
+                                            //         <Card.Title></Card.Title>
+                                            //         <Card.Text > Prévisualisation des médias </Card.Text>
+                                            //         <Button variant="warning">Modifier</Button>
+                                            //     </Card.Body>
+                                            // </Card>
+                        }
+                    </Col>
+                    <Col sm={5} style={{padding: "10px"}}>
                             <FileList files={this.state.files}
                                       updateCurrentFile={this.updateCurrentFile}
                                       modifyCurrentFile={this.modifyCurrentFile}
@@ -317,36 +367,8 @@ export default class Home extends Component {
                                        importEvent={this.importEvent}
                                        displayEvent={this.displayEvent}
                             />
-                        </Accordion>
-
                     </Col>
                         {/*</Col>*/}
-                        <Col className={"m1"}>
-                            {this.state.isFileSelected ?
-                                <Col>
-                                    <FileSingle file={this.state.currentFile}/>
-                                </Col>
-                                :
-                            this.state.isEventSelectedForModification ?
-                                <Col> <EventMod event={this.state.currentEvent}/> </Col>
-                                :
-                            this.state.importEvent ?
-                                <Col><EventForm fFD={this.state.fileForDisplay} default={this.state.default}/></Col>
-                                :
-                            this.state.isEventSelected ?
-                                <Col style={{width: "100vh"}}><EventSingle event={this.state.currentEvent}/></Col>
-
-                                :
-                            this.state.importFile ?
-                                <Col><FileForm file={this.state.selectedFile}/></Col>
-                                :
-                                <Col>
-                                    <div>
-                                        <img src="../../../public/assets/img/STRAMATEL-LOGO-dark.png" alt=""/>
-                                    </div>
-                                </Col>
-                            }
-                        </Col>
                 </Row>
             </div>
 

@@ -39,6 +39,19 @@
   }
 }
 
+.accordion-button {
+  background-color: rgb(32, 48, 56) !important;
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+}
+
+.accordion-button {
+  color: white !important;
+}
+
+
 
 
 

@@ -11,23 +11,23 @@ export default class Profile extends Component {
     render() {
         const { currentUser } = this.state;
         return (
-            <div className="container">
+            <div className="container" >
                 <header className="jumbotron">
-                    <h3>
-                        <strong>{currentUser.username}</strong> Profile
+                    <h3 style={{color:"white"}}>
+                        <strong >{currentUser.username}</strong> Profile
                     </h3>
                 </header>
-                <p>
-                    <strong>Token:</strong>{" "}
+                <p style={{color:"white"}}>
+                    <strong >Token:</strong>{" "}
                     {currentUser.accessToken.substring(0, 20)} ...{" "}
                     {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
                 </p>
-                <p>
+                <p style={{color:"white"}}>
                     <strong>Id:</strong>{" "}
                     {currentUser.id}
                 </p>
-                <strong>Authorities:</strong>
-                <ul>
+                <strong style={{color:"white"}} >Authorities:</strong>
+                <ul style={{color:"white"}}>
                     {currentUser.roles &&
                     currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
                 </ul>

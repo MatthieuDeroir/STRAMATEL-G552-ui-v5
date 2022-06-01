@@ -1,7 +1,13 @@
 import React from 'react';
 import axios from "axios";
 import FormData from 'form-data';
+
 import {CircularProgress, Button} from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Input from "@mui/material/Input";
+
+import { Row, Col } from 'react-bootstrap';
+
 import authService from "../../services/authService";
 
 var bcrypt = require("bcryptjs");
@@ -35,7 +41,7 @@ class FileForm extends React.Component {
         this.setState({user: authService.getCurrentUser().username});
     };
     //File Upload
-    onFileUpload = async (e) => {
+    onFileUpload = async (e, ref) => {
         e.preventDefault();
         const _name = this.refs.name.value
         const __name = this.state.fileName
@@ -95,28 +101,15 @@ class FileForm extends React.Component {
     render() {
 
         return (
-            <form className="col s12" onSubmit={this.onFileUpload.bind(this)}>
-                <div className="row">
-                    <div className="input-field col s6">
-                        <input id="name" ref="name" type="text"/>
-                        <label htmlFor="name">File Name</label>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="row">
-
+            <form className="" onSubmit={this.onFileUpload.bind(this)}>
+                <Row >
                         <div className="file-field input-field">
-                            <div className="btn">
-                                <span>File</span>
+                            <IconButton className="btn">
                                 <input id="media" ref="media" type="file" onChange={this.saveFile.bind(this)}/>
-                            </div>
-                            <div className="file-path-wrapper">
-                                <input className="file-path validate" type="text"/>
-                            </div>
+                            </IconButton>
                         </div>
-                    </div>
-                </div>
-                <Button type="submit" className="btn-large waves-effect blue-grey darken-4 waves-orange">Add File
+                </Row>
+                <Button type="submit" className="btn-large waves-effect blue-grey darken-4 waves-orange"> Ajouter ce média
 
                 </Button>
             </form>

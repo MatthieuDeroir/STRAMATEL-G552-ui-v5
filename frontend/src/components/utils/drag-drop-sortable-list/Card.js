@@ -1,15 +1,13 @@
 import { useRef } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Button } from 'react-bootstrap'
 
 const ItemTypes = {
     FILE: 'file',
 }
 const style = {
-    border: '1px solid gray',
-    padding: '0.5rem 1rem',
     marginBottom: '.5rem',
-    backgroundColor: '#203038',
+    backgroundColor: '#263a42',
     cursor: 'move',
     width: "100%",
 }
@@ -21,6 +19,15 @@ export const Card = ({ _id, name, path, format, duration, index, moveCard }) => 
     // }
 
     const saveChanges = (e) => {
+        console.log(e.target.value)
+
+        if (!isNaN(e.target.value) && e.target.value) {
+            console.log(e.target.value + " is a number")
+            duration = e.target.value
+        }
+    }
+
+    const submitDuration = () => {
 
     }
 
@@ -79,7 +86,7 @@ export const Card = ({ _id, name, path, format, duration, index, moveCard }) => 
     const [{ isDragging }, drag] = useDrag({
         type: ItemTypes.FILE,
         item: () => {
-            return { _id, index }
+            return { _id, index, duration }
         },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
@@ -89,8 +96,7 @@ export const Card = ({ _id, name, path, format, duration, index, moveCard }) => 
     drag(drop(ref))
     return (
         <Row ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId}>
-            <Col xs={2}>
-                <Row xs={2}></Row>
+            <Col >
                <div style={{color:"white", fontSize:"30px", position:"middle"}}>#{`${index + 1}`}</div>
             </Col>
             <Col>
@@ -98,19 +104,11 @@ export const Card = ({ _id, name, path, format, duration, index, moveCard }) => 
                     switch(format){
                         default: return 0;
                         case "image" :
-                            return <img src={`${path}`} alt="" style={{maxWidth:"33%", maxHeight: "100%"}}/>
+                            return <img src={`${path}`} alt="" style={{maxWidth:"100%", maxHeight: "10vh"}}/>
                         case "video" :
-                            return <video src={`${path}`} alt="" style={{maxWidth:"33%", maxHeight: "100%"}}/>
+                            return <video src={`${path}`} alt="" style={{maxWidth:"100%", maxHeight: "10vh"}}/>
                     }
             }) () }
-            </Col>
-            <Col>
-                <form action="">
-
-                    <input type="text" />
-
-                    {/*<Button onClick={}>HELLO</Button>*/}
-                </form>
             </Col>
         </Row>
     )

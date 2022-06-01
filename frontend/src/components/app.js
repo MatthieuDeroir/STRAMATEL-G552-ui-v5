@@ -5,6 +5,27 @@ import './App.css';
 
 import '../bootstrap/css/bootstrap.min.css'
 
+
+import IconButton from '@mui/material/IconButton';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import LogoutIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
+import PersonAddAlt from '@mui/icons-material/PersonAddAlt';
+import Image from '@mui/icons-material/Image';
+import PermMedia from '@mui/icons-material/PermMedia';
+
+import Paper from '@mui/material/Paper';
+
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import MenuIcon from '@mui/icons-material/Menu';
+
+import ResponsiveAppBar from './Navigation/Navbar';
+
+
 import {Switch, Route, Link} from "react-router-dom";
 import AuthService from "../services/authService";
 import Login from "./User/Action/Login";
@@ -23,6 +44,9 @@ import FileForm from './File/FileForm';
 import EventList from './Event/EventList';
 import EventSingle from './Event/EventSingle';
 import EventForm from './Event/EventForm';
+
+import BottomNavigation from '@mui/material/BottomNavigation'
+import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 
 import {
     CDBSidebar,
@@ -116,6 +140,7 @@ class App extends React.Component {
             }]
 
         }
+
         //users
         this.logOut = this.logOut.bind(this);
         //files
@@ -235,7 +260,7 @@ class App extends React.Component {
         })
     }
 
-    displayFileList(){
+    displayFileList() {
         this.setState({
             importFile: false,
             importEvent: false,
@@ -307,7 +332,7 @@ class App extends React.Component {
         window.location.reload()
     }
 
-    displayEventList(){
+    displayEventList() {
         this.setState({
             importFile: false,
             importEvent: false,
@@ -328,7 +353,7 @@ class App extends React.Component {
         this.convertToJSON(item);
     }
 
-    noDisplay(){
+    noDisplay() {
         this.setState({
             importFile: false,
             importEvent: false,
@@ -369,102 +394,281 @@ class App extends React.Component {
 
     render() {
         const {currentUser, showSuperuserBoard, showAdminBoard} = this.state;
+
+
+        function detectMob() {
+            return ((window.innerWidth <= 800) || (window.innerHeight <= 600));
+        }
+
         return (
             <div>
-                <div style={{display: 'flex'}}>
-                    <div>
-                        <CDBSidebar style={{position: "sticky", top: "0",  height: "100vh"}} textColor="#fff" backgroundColor="#203038"  >
-                            <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-                                <a href="/" className="text-decoration-none" style={{color: 'inherit'}} onClick={this.noDisplay}>
-                                    Tableau de Bord
-                                </a>
-                            </CDBSidebarHeader>
-
-                            <CDBSidebarContent className="sidebar-content">
-                                <CDBSidebarMenu>
-                                    <NavLink exact to="/files" activeClassName="activeClicked" onClick={this.displayFileList}>
-                                        <CDBSidebarMenuItem icon="columns">Médiathèque</CDBSidebarMenuItem>
-                                    </NavLink>
-                                    <NavLink exact to="/events" activeClassName="activeClicked" onClick={this.displayEventList}>
-                                        <CDBSidebarMenuItem icon="table">Évenements</CDBSidebarMenuItem>
-                                    </NavLink>
-                                    <NavLink exact to="/analytics" activeClassName="activeClicked">
-                                        <CDBSidebarMenuItem icon="chart-line">Analytics</CDBSidebarMenuItem>
-                                    </NavLink>
-
-                                    <NavLink exact to="/hero404" target="_blank" activeClassName="activeClicked">
-                                        <CDBSidebarMenuItem icon="exclamation-circle">404 page</CDBSidebarMenuItem>
-                                    </NavLink>
+                {/*{detectMob() ?*/}
+                <div>
+                    <Box sx={{flexGrow: 1}}>
+                        <AppBar style={{justifyContent: "center", position: "sticky", top: "0", marginBottom:"2vh"}}>
+                            <Toolbar style={{backgroundColor: "#203038", justifyContent: "center", padding: "0"}}>
+                                <IconButton
+                                    size="large"
+                                    edge="start"
+                                    color="inherit"
+                                    aria-label="menu"
+                                    sx={{mr: 2}}
+                                    style={{padding: "0", justifyContent: "center"}}
 
 
-                                </CDBSidebarMenu>
-                            </CDBSidebarContent>
-                            <CDBSidebarFooter style={{textAlign:"center"}} >
-
-                                <div
-                                    className="sidebar-btn-wrapper"
-                                    style={{
-                                        padding: '20px 5px',
-                                    }}
                                 >
-                                    Stramatel
+                                    { detectMob() ?
+                                        <img style={{width: "60vw", justifyContent: "center", padding: "0"}}
+                                             src="../assets/img/STRAMATEL-LOGO-dark.png"
+                                             alt=""/>
+                                        :
+                                        <img style={{height: "12vh", justifyContent: "center"}}
+                                             src="../assets/img/STRAMATEL-LOGO-dark.png"
+                                             alt=""/>
+                                    }
+                                </IconButton>
+                            </Toolbar>
+                        </AppBar>
+                    </Box>
+                    <Switch>
+                        <Route exact path={["/", "/home"]} component={Home}/>
+                        <Route exact path="/login" component={Login}/>
+                        <Route exact path="/register" component={Registration}/>
+                        <Route exact path="/profile" component={Profile}/>
+                        <Route path="/user" component={BoardUser}/>
+                        <Route path="/admin" component={BoardAdmin}/>
+                        <Route path="/superuser" component={BoardSuperuser}/>
+                    </Switch>
+                    <Paper sx={{position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: "1000"}}>
+                        <BottomNavigation
+                            showLabels
+                            style={{backgroundColor: "#203038"}}
+                            // value={value}
+                            // onChange={(event, newValue) => {
+                            //     setValue(newValue);
+                            // }}
+                        >
+                            {/*<a className="" href="/" onClick={this.noDisplay} style={{right: "100%"}}>*/}
+                            {/*    <IconButton*/}
+                            {/*        showLabel*/}
+                            {/*        size="large"*/}
+                            {/*        aria-label="account of current user"*/}
+                            {/*        aria-controls="menu-appbar"*/}
+                            {/*        aria-haspopup="true"*/}
+                            {/*        color="inherit"*/}
+                            {/*        style={{padding: "0"}}*/}
+                            {/*        label="Stramatel"*/}
+                            {/*    >*/}
+                            {/*        <img style={{width: "200px", padding: "12px"}}*/}
+                            {/*             src="../assets/img/STRAMATEL-LOGO-dark.png"*/}
+                            {/*             alt=""/>*/}
+                            {/*    </IconButton>*/}
+                            {/*</a>*/}
+                            {currentUser ?
+                                <div>
+                                    <Link to={"/"}>
+                                        <BottomNavigationAction label="Médias" icon={<Image sx={{color: "white"}}/>}/>
+                                    </Link>
+                                    <Link to={"/"}>
+                                        <BottomNavigationAction label="Évenements"
+                                                                icon={<PermMedia sx={{color: "white"}}/>}/>
+                                    </Link>
+                                    <Link to={"/profile"}>
+                                        <BottomNavigationAction label="Profil"
+                                                                icon={<AccountCircle sx={{color: "white"}}/>}/>
+                                    </Link>
+                                    <Link to={"/login"} onClick={this.logOut}>
+                                        <BottomNavigationAction label="Déconnexion"
+                                                                icon={<LogoutIcon sx={{color: "white"}}/>}/>
+                                    </Link>
                                 </div>
-                            </CDBSidebarFooter>
-                        </CDBSidebar>
-                    </div>
+                                :
+                                <div>
+                                    <Link to={"/login"}>
+                                        <BottomNavigationAction label="Profil" icon={<LoginIcon/>}/>
+                                    </Link>
+                                    <Link to={"/register"} onClick={this.logOut}>
+                                        <BottomNavigationAction label="Déconnexion" icon={<PersonAddAlt/>}/>
+                                    </Link>
+                                </div>
+                            }
+                        </BottomNavigation>
+                    </Paper>
+                </div>
+                {/*:*/}
+                {/*<div style={{display: 'flex'}}>*/}
+                {/*    <div>*/}
+                {/*        <CDBSidebar style={{position: "sticky", top: "0", height: "100vh"}} textColor="#fff"*/}
+                {/*                    backgroundColor="#203038">*/}
+                {/*            <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>*/}
+                {/*                <a href="/" className="text-decoration-none" style={{color: 'inherit'}}*/}
+                {/*                   onClick={this.noDisplay}>*/}
+                {/*                    Tableau de Bord*/}
+                {/*                </a>*/}
+                {/*            </CDBSidebarHeader>*/}
 
-                    <div className="container-fluid" style={{padding:"0"}}>
-                        <nav className="navbar navbar-expand navbar-dark justify-content-center p-1 sticky-top" style={{backgroundColor:"#203038", alignContent:"left"}}>
-                            <a className="" href="/" onClick={this.noDisplay}>
-                                <img style={{width:"300px"}} src="../assets/img/STRAMATEL-LOGO-dark.png" alt=""/>
-                            </a>
-                            {currentUser ? (
-                                <div className="navbar-nav ">
-                                    <li className="nav-item">
-                                        <Link to={"/profile"} className="nav-link">
-                                            {currentUser.username}
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a href={"/login"} className="nav-link" onClick={this.logOut}>
-                                            Log Out
-                                        </a>
-                                    </li>
-                                </div>
-                            ):(
-                                <div className="navbar-nav ml-auto">
-                                    <li className="nav-item">
-                                        <Link to={"/login"} className="nav-link">
-                                            Log In
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to={"/register"} className="nav-link">
-                                            Sign Up
-                                        </Link>
-                                    </li>
-                                </div>
-                            )}
-                        </nav>
-                        <Col>
-                            {this.state.displayFileList ?
-                                <Home displayFileList={this.state.displayFileList} displayEventList={this.state.displayEventList}/>
-                            : null }
-                            { this.state.displayEventList ?
-                                <Home displayEventList={this.state.displayEventList} displayFileList={this.state.displayFileList}/>
-                                : null }
+                {/*            <CDBSidebarContent className="sidebar-content">*/}
+                {/*                <CDBSidebarMenu>*/}
+                {/*                    <NavLink exact to="/files" activeClassName="activeClicked"*/}
+                {/*                             onClick={this.displayFileList}>*/}
+                {/*                        <CDBSidebarMenuItem icon="columns">Médiathèque</CDBSidebarMenuItem>*/}
+                {/*                    </NavLink>*/}
+                {/*                    <NavLink exact to="/events" activeClassName="activeClicked"*/}
+                {/*                             onClick={this.displayEventList}>*/}
+                {/*                        <CDBSidebarMenuItem icon="table">Évenements</CDBSidebarMenuItem>*/}
+                {/*                    </NavLink>*/}
+                {/*                    <NavLink exact to="/users" activeClassName="activeClicked">*/}
+                {/*                        <CDBSidebarMenuItem icon="chart-line">Gestion*/}
+                {/*                            Utilisateur</CDBSidebarMenuItem>*/}
+                {/*                    </NavLink>*/}
 
-                        </Col>
-                        <Switch>
-                            <Route exact path={["/", "/home"]} component={Home}/>
-                            <Route exact path="/login" component={Login}/>
-                            <Route exact path="/register" component={Registration}/>
-                            <Route exact path="/profile" component={Profile}/>
-                            <Route path="/user" component={BoardUser}/>
-                            <Route path="/admin" component={BoardAdmin}/>
-                            <Route path="/superuser" component={BoardSuperuser}/>
-                        </Switch>
-                    </div>
+                {/*                    <NavLink exact to="/hero404" target="_blank" activeClassName="activeClicked">*/}
+                {/*                        <CDBSidebarMenuItem icon="exclamation-circle">404 page</CDBSidebarMenuItem>*/}
+                {/*                    </NavLink>*/}
+
+
+                {/*                </CDBSidebarMenu>*/}
+                {/*            </CDBSidebarContent>*/}
+                {/*            <CDBSidebarFooter style={{textAlign: "center"}}>*/}
+
+                {/*                <div*/}
+                {/*                    className="sidebar-btn-wrapper"*/}
+                {/*                    style={{*/}
+                {/*                        padding: '20px 5px',*/}
+                {/*                    }}*/}
+                {/*                >*/}
+                {/*                    Stramatel*/}
+                {/*                </div>*/}
+                {/*            </CDBSidebarFooter>*/}
+                {/*        </CDBSidebar>*/}
+                {/*    </div>*/}
+
+
+                {/*    <div className="container-fluid" style={{padding: "0"}}>*/}
+                {/*        /!*<ResponsiveAppBar />*!/*/}
+                {/*        <nav className="navbar navbar-expand navbar-dark"*/}
+                {/*             style={{backgroundColor: "#203038", justifyContent: "right"}}>*/}
+
+                {/*            {currentUser ? (*/}
+                {/*                <div className="navbar-nav w-100" style={{justifyContent: "center"}}>*/}
+                {/*                    <a className="" href="/" onClick={this.noDisplay} style={{right: "100%"}}>*/}
+                {/*                        <IconButton*/}
+                {/*                            size="large"*/}
+                {/*                            aria-label="account of current user"*/}
+                {/*                            aria-controls="menu-appbar"*/}
+                {/*                            aria-haspopup="true"*/}
+                {/*                            color="inherit"*/}
+                {/*                            style={{padding: "0"}}*/}
+                {/*                        >*/}
+                {/*                            <img style={{width: "200px"}}*/}
+                {/*                                 src="../assets/img/STRAMATEL-LOGO-dark.png"*/}
+                {/*                                 alt=""/>*/}
+
+                {/*                        </IconButton>*/}
+                {/*                    </a>*/}
+                {/*                    <li className="nav-item" style={{right: "100%"}}>*/}
+                {/*                        <Link to={"/profile"} className="nav-link">*/}
+                {/*                            <IconButton*/}
+                {/*                                size="large"*/}
+                {/*                                aria-label="account of current user"*/}
+                {/*                                aria-controls="menu-appbar"*/}
+                {/*                                aria-haspopup="true"*/}
+                {/*                                color="inherit"*/}
+                {/*                                style={{padding: "0"}}*/}
+
+                {/*                            >*/}
+                {/*                                <AccountCircle/>*/}
+                {/*                            </IconButton>*/}
+                {/*                        </Link>*/}
+                {/*                    </li>*/}
+                {/*                    <li className="nav-item right">*/}
+                {/*                        <a href={"/login"} className="nav-link" onClick={this.logOut}>*/}
+                {/*                            <IconButton*/}
+                {/*                                size="large"*/}
+                {/*                                aria-label="account of current user"*/}
+                {/*                                aria-controls="menu-appbar"*/}
+                {/*                                aria-haspopup="true"*/}
+                {/*                                style={{padding: "0"}}*/}
+
+                {/*                                color="inherit"*/}
+                {/*                            >*/}
+                {/*                                <LogoutIcon/>*/}
+                {/*                            </IconButton>*/}
+                {/*                        </a>*/}
+                {/*                    </li>*/}
+                {/*                </div>*/}
+                {/*            ) : (*/}
+                {/*                <div className="navbar-nav ml-auto">*/}
+                {/*                    <a className="" href="/" onClick={this.noDisplay} style={{right: "100%"}}>*/}
+                {/*                        <IconButton*/}
+                {/*                            size="large"*/}
+                {/*                            aria-label="account of current user"*/}
+                {/*                            aria-controls="menu-appbar"*/}
+                {/*                            aria-haspopup="true"*/}
+                {/*                            color="inherit"*/}
+                {/*                            style={{padding: "0"}}*/}
+                {/*                        >*/}
+                {/*                            <img style={{width: "200px"}}*/}
+                {/*                                 src="../assets/img/STRAMATEL-LOGO-dark.png"*/}
+                {/*                                 alt=""/>*/}
+
+                {/*                        </IconButton>*/}
+                {/*                    </a>*/}
+                {/*                    <li className="nav-item">*/}
+                {/*                        <Link to={"/login"} className="nav-link">*/}
+                {/*                            <IconButton*/}
+                {/*                                size="large"*/}
+                {/*                                aria-label="account of current user"*/}
+                {/*                                aria-controls="menu-appbar"*/}
+                {/*                                aria-haspopup="true"*/}
+                {/*                                style={{padding: "0"}}*/}
+                {/*                                color="inherit"*/}
+                {/*                            >*/}
+                {/*                                <LoginIcon*/}
+                {/*                                />*/}
+                {/*                            </IconButton>*/}
+                {/*                        </Link>*/}
+                {/*                    </li>*/}
+                {/*                    <li className="nav-item">*/}
+                {/*                        <Link to={"/register"} className="nav-link">*/}
+                {/*                            <IconButton*/}
+                {/*                                size="large"*/}
+                {/*                                aria-label="account of current user"*/}
+                {/*                                aria-controls="menu-appbar"*/}
+                {/*                                aria-haspopup="true"*/}
+                {/*                                style={{padding: "0"}}*/}
+                {/*                                color="inherit"*/}
+                {/*                            >*/}
+                {/*                                <PersonAddAlt/>*/}
+                {/*                            </IconButton>*/}
+                {/*                        </Link>*/}
+                {/*                    </li>*/}
+                {/*                </div>*/}
+                {/*            )}*/}
+                {/*        </nav>*/}
+                {/*        /!*<Col>*!/*/}
+                {/*        /!*    {this.state.displayFileList ?*!/*/}
+                {/*        /!*        <Home displayFileList={this.state.displayFileList} displayEventList={this.state.displayEventList}/>*!/*/}
+                {/*        /!*    : null }*!/*/}
+                {/*        /!*    { this.state.displayEventList ?*!/*/}
+                {/*        /!*        <Home displayEventList={this.state.displayEventList} displayFileList={this.state.displayFileList}/>*!/*/}
+                {/*        /!*        : null }*!/*/}
+
+                {/*        /!*</Col>*!/*/}
+                {/*        <Switch>*/}
+                {/*            <Route exact path={["/", "/home"]} component={Home}/>*/}
+                {/*            <Route exact path="/login" component={Login}/>*/}
+                {/*            <Route exact path="/register" component={Registration}/>*/}
+                {/*            <Route exact path="/profile" component={Profile}/>*/}
+                {/*            <Route path="/user" component={BoardUser}/>*/}
+                {/*            <Route path="/admin" component={BoardAdmin}/>*/}
+                {/*            <Route path="/superuser" component={BoardSuperuser}/>*/}
+                {/*        </Switch>*/}
+                {/*    </div>*/}
+
+                {/*</div>*/}
+                {/*}*/}
+                <div style={{height: "70px"}}>
 
                 </div>
 

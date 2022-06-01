@@ -33,27 +33,27 @@ class SelectableTitleCard extends React.Component {
             type,
             selected
         } = this.props;
-        if (type == "image") {
+        if (type === "image") {
             return (
 
                 <SelectableCard onClick={this.props.onClick}
                                 selected={selected}>
                     <div className="content">
                         <img src={`${description}`} alt={`${title}`}
-                             style={{width: "100%", height: "100%", borderRadius: "5%"}}/>
+                             style={{width: "100%", height: "100%"}}/>
                     </div>
                 </SelectableCard>
 
 
             );
-        } else if (type == "video") {
+        } else if (type === "video") {
             return (
 
                 <SelectableCard onClick={this.props.onClick}
                                 selected={selected}>
                     <div className="content">
                         <video src={`${description}`} alt={`${title}`}
-                               style={{width: "100%", height: "100%", borderRadius: "5%"}}
+                               style={{width: "100%", height: "100%"}}
                                autoPlay="1" muted="1" loop/>
                     </div>
                 </SelectableCard>

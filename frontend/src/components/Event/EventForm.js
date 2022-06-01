@@ -103,34 +103,31 @@ class EventForm extends React.Component {
     render() {
 
         return (
-
-            <form className="col s12" onSubmit={this.EventSubmit.bind(this)}>
+        <div style={{textAlign:"center", padding:"10px"}}>
+            <form style={{textAlign:"center", justifyContent:"center", backgroundColor:"#203038"}} onSubmit={this.EventSubmit.bind(this)}>
                 <div className="row">
-                    <h2>Créer un évenement</h2>
+                    <h2 style={{color:"white"}}>Créer un évènement</h2>
                 </div>
                 <div className="row">
                     <div className="input-field col s6">
-                        <input id="eventname" ref="eventname" type="text"/>
-                        <label htmlFor="eventname">Event Name</label>
+                        <input id="eventname" ref="eventname" placeholder="Nom de l'évènement" type="text"/>
                     </div>
                 </div>
-                <div className="row" style={{overflowY: "scroll", height:"500px"}}>
-                    <div className="column">
+                <div style={{ width:"100%", overflowY: "scroll", height:"66vh"}}>
                         <h1 className="title">{this.props.title}</h1>
                         <SelectableCardList
                             multiple={true}
                             maxSelectable={28}
                             contents={this.props.fFD != "" ? this.initDisplayImgJSON(this.props.fFD) : this.props.default}
                             onChange={this.onListChanged.bind(this)}/>
-                    </div>
                     {/*<Example cardContents={this.props.fFD != "" ? this.initDisplayImgJSON(this.props.fFD) : this.props.default} value={this.state.value} onChangeValue={this.handleChangeValue} multiple/>*/}
                 </div>
-                <button className="card" onClick={(e) => this.saveFiles(this.state.selected)}>
+                <button onClick={(e) => this.saveFiles(this.state.selected)}>
                     Créer l'évenement
                 </button>
 
             </form>
-
+        </div>
 
         );
 

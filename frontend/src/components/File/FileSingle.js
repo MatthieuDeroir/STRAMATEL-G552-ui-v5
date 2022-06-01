@@ -1,11 +1,12 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
+import { Row, Col } from 'react-bootstrap'
 
 const FileSingle = (props) => {
     return (
 
-    <Card text={"light"} bg={"dark"} >
+    <Card text={"light"} style={{backgroundColor:"#203038", padding:"10px"}} >
         { (() => {
             switch (props.file.type) {
                 case "image":
@@ -17,10 +18,15 @@ const FileSingle = (props) => {
             }
         }) ()}
 
-        <Card.Body>
-            <Card.Title>{props.file.name}</Card.Title>
-            <Card.Text > Prévisualisation des médias </Card.Text>
-            <Button variant="warning">Modifier</Button>
+        <Card.Body className={"justify-content-center"}>
+            <Row style={{justifyContent:"center"}}>
+                <Col style={{justifyContent:"center"}}>
+                    <Button variant="warning">Modifier</Button>
+                </Col>
+                <Col style={{justifyContent:"center"}}>
+                    <Button variant="danger">Supprimer</Button>
+                </Col>
+            </Row>
         </Card.Body>
     </Card>
     );
