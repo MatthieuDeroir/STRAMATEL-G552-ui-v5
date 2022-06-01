@@ -11,8 +11,15 @@ import {
     getEvents,
     getEventWithId,
     updateEvent,
-    deleteEvent
+    deleteEvent,
+
 } from '../controllers/medias/eventController';
+
+import {
+    getDisplay,
+    updateDisplay,
+    addNewDisplay
+} from "../controllers/medias/displayController";
 
 import  {
     addNewUser,
@@ -91,6 +98,13 @@ const routes = (app) => {
         .get(adminBoard);
     app.route("/superuser")
         .get(superuserBoard);
+
+    app.route("/display")
+        .get(getDisplay)
+        .post(addNewDisplay)
+    app.route("/display/:DisplayId")
+        .put(updateDisplay)
+
 
     app.post(
         "/auth/signup",
