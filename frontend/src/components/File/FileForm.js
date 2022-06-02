@@ -43,7 +43,7 @@ class FileForm extends React.Component {
     //File Upload
     onFileUpload = async (e, ref) => {
         e.preventDefault();
-        const _name = this.refs.name.value
+        const _name = ""
         const __name = this.state.fileName
         const _hashedName = bcrypt.hashSync(this.state.fileName, 8)
         const _type = this.state.fileType.split('/').shift();

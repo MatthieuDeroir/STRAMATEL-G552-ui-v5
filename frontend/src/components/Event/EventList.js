@@ -2,7 +2,7 @@ import React from 'react';
 import AuthService from "../../services/authService";
 // import {Accordion, AccordionActions, AccordionSummary, Button} from "@mui/material";
 // import Accordion from "react-bootstrap/Accordion";
-import Button from "react-bootstrap/Button"
+import Button from "@mui/material/Button"
 import {Col, Row, ButtonGroup} from 'react-bootstrap';
 
 import IconButton from '@mui/material/IconButton';
@@ -32,7 +32,7 @@ const EventList = (props) => {
     return (
 
         <div>
-            <Accordion>
+            <Accordion defaultExpanded={true}>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon/>}
                         aria-controls="panel1a-content"
@@ -47,11 +47,19 @@ const EventList = (props) => {
                         style={{backgroundColor: "#203038"}}>
                         <div style={{
                             width: "100%",
-                            maxHeight: "32vh",
+                            maxHeight: "61vh",
                             height: "auto",
                             overflowY: "scroll",
                             overflowX: "hidden"
                         }} className={"align-content-center"}>
+                            <Row>
+                                <Button
+                                    variant="outline-light"
+                                    href="#!" key={0}
+                                    onClick={props.displayScore.bind(this)} style={{width: "100%", height: "90%"}}>
+                                    Afficher le Score
+                                </Button>
+                            </Row>
                             <Row>
                                 <Col>
                                     <Button
@@ -95,7 +103,7 @@ const EventList = (props) => {
                                                     aria-label="account of current user"
                                                     aria-controls="menu-appbar"
                                                     aria-haspopup="true"
-                                                    style={{padding: "0", color: "#982d23"}}
+                                                    style={{padding: "0 5px", color: "#982d23"}}
                                                     onClick={props.updateCurrentEvent.bind(this, item)}
                                                     color="inherit"
                                                 >
@@ -136,7 +144,7 @@ const EventList = (props) => {
                                                     aria-label="account of current user"
                                                     aria-controls="menu-appbar"
                                                     aria-haspopup="true"
-                                                    style={{padding: "0", color: "#fb6a22"}}
+                                                    style={{padding: "0 5px", color: "#fb6a22"}}
                                                     onClick={props.modifyCurrentEvent.bind(this, item)}
 
                                                     color="inherit"
@@ -159,7 +167,7 @@ const EventList = (props) => {
                                                     aria-label="account of current user"
                                                     aria-controls="menu-appbar"
                                                     aria-haspopup="true"
-                                                    style={{padding: "0", color: "#fe9b19"}}
+                                                    style={{padding: "0 5px", color: "#fe9b19"}}
                                                     onClick={props.displayEvent.bind(this, item)}
 
 
@@ -182,7 +190,7 @@ const EventList = (props) => {
                                                     aria-label="account of current user"
                                                     aria-controls="menu-appbar"
                                                     aria-haspopup="true"
-                                                    style={{padding: "0", color: "#c93028"}}
+                                                    style={{padding: "0 5px", color: "#c93028"}}
                                                     onClick={props.deleteCurrentEvent.bind(this, item)}
                                                     color="inherit"
                                                 >

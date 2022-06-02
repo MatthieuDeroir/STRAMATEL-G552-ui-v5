@@ -7,18 +7,37 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 const EventSingle = (props) => {
+
+    let r_width = "100%"
+    let r_height = "100%"
+
+    function detectMob(){
+        return ( ( window.innerWidth <= 800 ) || ( window.innerHeight <= 600 ) );
+    }
+
+    const isMobile = detectMob()
+
+    if(!isMobile){
+        r_width = "624px"
+        r_height = "350px"
+    }
+    else{
+        r_width = "100%"
+        r_height = "100%"
+    }
+
     if (props.event.files) {
         return (
-            <div>
-                <h2 style={{textAlign:"center"}}> {props.event.name}</h2>
-                <Carousel fade key={`${props.event._id}`}  >
+            <div >
+                <h2 style={{textAlign:"center", color:"white", backgroundColor:"#203038"}}> {props.event.name}</h2>
+                <Carousel fade key={`${props.event._id}`} style={{width: {r_width}, height: {r_height}}}  >
                     {
                         //624px w, 350px h
                         props.event.files.map((item) => //dans l'idéal, height est dépendante = width/(screen_res)
                                                         //screen_res étant la résolution du panneau
                                                         //pour prévisualisation réaliste des médias
                                             //la duree est exprimee en millieme de seconde
-                            <Carousel.Item interval={5000/*item.duration*/} >
+                            <Carousel.Item interval={item.type === "image" ? item.duration*1000 : 5000} style={{width:"inherit",height: "inherit"}} >
                                     {(() => {
                                         switch (item.type) {
                                             case "image":

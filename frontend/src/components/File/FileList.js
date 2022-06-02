@@ -15,6 +15,8 @@ import IconButton from "@mui/material/IconButton";
 
 import ImageIcon from "@mui/icons-material/Image"
 
+import Button from "@mui/material/Button"
+
 
 // <Accordion />
 // <AccordionActions />
@@ -25,9 +27,10 @@ import ImageIcon from "@mui/icons-material/Image"
 const FileList = (props) => {
     return (
         <div>
-            <Accordion>
+            <Accordion defaultExpanded={true}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon/>}
+
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                     style={{backgroundColor: "#203038"}}>
@@ -37,15 +40,15 @@ const FileList = (props) => {
                     <Typography color={"white"} style={{padding:"8px"}}>Médias</Typography></AccordionSummary>
                 <AccordionDetails style={{
                     width: "100%",
-                    maxHeight: "32vh",
+                    maxHeight: "63vh",
                     overflowY: "scroll",
                     justifyContent: "center",
                     backgroundColor: "#203038"
                 }}>
                     <Row>
-                        {/*<Button variant="outline-light" href="#!" key={0}*/}
-                        {/*        onClick={props.importFile.bind(this)}*/}
-                        {/*        size={"small"} style={{width: "100%", height: "90%"}}>Importer un media</Button>*/}
+                        <Button variant="outline-light" href="#!" key={0}
+                                onClick={props.importFile.bind(this)}
+                                size={"small"} style={{width: "100%", height: "90%"}}>Importer un media</Button>
                     </Row>
 
                     {/*{props.files.map((item) => {*/}

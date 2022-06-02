@@ -29,14 +29,14 @@ const EventDuration = (props) => {
             .catch((err) => {
                 console.log(err)
             });
-        window.location.reload(false);
+        console.log(event.files)
     }
 
     function newDuration(newDuration, item, e) {
         console.log(item)
         console.log(e.target.value)
 
-        item.duration = e.target.value
+        item.duration = parseInt(e.target.value)
     }
 
     function returnDuration(path){
@@ -67,7 +67,7 @@ const EventDuration = (props) => {
                                            onChange={newDuration.bind(this, item, item)}/>
                                     :
 
-                                    null
+                                    <div>Vidéo</div>
                                      }
 
                             </Col>

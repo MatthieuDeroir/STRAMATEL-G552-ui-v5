@@ -141,6 +141,7 @@ class App extends React.Component {
 
         }
 
+
         //users
         this.logOut = this.logOut.bind(this);
         //files
@@ -165,6 +166,7 @@ class App extends React.Component {
         //display lists
         this.displayFileList = this.displayFileList.bind(this)
         this.displayEventList = this.displayEventList.bind(this)
+        this.noDisplay = this.noDisplay.bind(this)
 
         //trigger display event
         this.displayEvent = this.displayEvent.bind(this);
@@ -179,7 +181,8 @@ class App extends React.Component {
             this.setState({
                 currentUser: user,
                 showAdminBoard: user.roles.includes("ROLE_ADMIN"),
-                showSuperuserBoard: user.roles.includes("ROLE_SUPERUSER")
+                showSuperuserBoard: user.roles.includes("ROLE_SUPERUSER"),
+                displayEventList: true
             });
         }
 
@@ -355,12 +358,6 @@ class App extends React.Component {
 
     noDisplay() {
         this.setState({
-            importFile: false,
-            importEvent: false,
-            isFileSelected: false,
-            isEventSelected: false,
-            isEventSelectedForModification: false,
-            isFileSelectedForModification: false,
             displayFileList: false,
             displayEventList: false,
         })
@@ -372,8 +369,9 @@ class App extends React.Component {
 
     //user
     logOut() {
+        document.location.href="localhost:3000/login";
         AuthService.logout();
-        window.location.reload()
+        window.location.reload(true);
     }
 
 
@@ -431,7 +429,7 @@ class App extends React.Component {
                         </AppBar>
                     </Box>
                     <Switch>
-                        <Route exact path={["/", "/home"]} component={Home}/>
+                        {/*<Route exact path={["/", "/home"]} component={Home}/>*/}
                         <Route exact path="/login" component={Login}/>
                         <Route exact path="/register" component={Registration}/>
                         <Route exact path="/profile" component={Profile}/>
@@ -467,28 +465,29 @@ class App extends React.Component {
                             {currentUser ?
                                 <div>
                                     <Link to={"/"}>
-                                        <BottomNavigationAction label="Médias" icon={<Image sx={{color: "white"}}/>}/>
+                                        <BottomNavigationAction label="Évenements"
+                                                                icon={<PermMedia sx={{color: "white"}} onClick={this.displayEventList} />}/>
                                     </Link>
                                     <Link to={"/"}>
-                                        <BottomNavigationAction label="Évenements"
-                                                                icon={<PermMedia sx={{color: "white"}}/>}/>
+                                        <BottomNavigationAction label="Médias" onClick={this.displayFileList}
+                                                                icon={<Image sx={{color: "white"}}/>}/>
                                     </Link>
                                     <Link to={"/profile"}>
                                         <BottomNavigationAction label="Profil"
-                                                                icon={<AccountCircle sx={{color: "white"}}/>}/>
+                                                                icon={<AccountCircle sx={{color: "white"}} onClick={this.noDisplay}/>}/>
                                     </Link>
-                                    <Link to={"/login"} onClick={this.logOut}>
+                                    <Link to={"/login"} onClick={this.noDisplay}>
                                         <BottomNavigationAction label="Déconnexion"
-                                                                icon={<LogoutIcon sx={{color: "white"}}/>}/>
+                                                                icon={<LogoutIcon sx={{color: "white"}} onClick={this.logOut}/>}/>
                                     </Link>
                                 </div>
                                 :
                                 <div>
-                                    <Link to={"/login"}>
+                                    <Link to={"/login"} onClick={this.noDisplay}>
                                         <BottomNavigationAction label="Profil" icon={<LoginIcon/>}/>
                                     </Link>
-                                    <Link to={"/register"} onClick={this.logOut}>
-                                        <BottomNavigationAction label="Déconnexion" icon={<PersonAddAlt/>}/>
+                                    <Link to={"/register"}>
+                                        <BottomNavigationAction label="Créer un compte" icon={<PersonAddAlt/>}/>
                                     </Link>
                                 </div>
                             }
@@ -647,12 +646,12 @@ class App extends React.Component {
                 {/*            )}*/}
                 {/*        </nav>*/}
                 {/*        /!*<Col>*!/*/}
-                {/*        /!*    {this.state.displayFileList ?*!/*/}
-                {/*        /!*        <Home displayFileList={this.state.displayFileList} displayEventList={this.state.displayEventList}/>*!/*/}
-                {/*        /!*    : null }*!/*/}
-                {/*        /!*    { this.state.displayEventList ?*!/*/}
-                {/*        /!*        <Home displayEventList={this.state.displayEventList} displayFileList={this.state.displayFileList}/>*!/*/}
-                {/*        /!*        : null }*!/*/}
+                            {this.state.displayFileList ?
+                                <Home displayFileList={this.state.displayFileList} displayEventList={this.state.displayEventList}/>
+                            : null }
+                            { this.state.displayEventList ?
+                                <Home displayEventList={this.state.displayEventList} displayFileList={this.state.displayFileList}/>
+                                : null }
 
                 {/*        /!*</Col>*!/*/}
                 {/*        <Switch>*/}

@@ -81,6 +81,7 @@ export default class Home extends Component {
         this.deleteCurrentFile = this.deleteCurrentFile.bind(this);
 
         //display event
+        this.displayScore = this.displayScore.bind(this)
         this.displayEvent = this.displayEvent.bind(this);
         this.convertToJSON = this.convertToJSON.bind(this);
 
@@ -298,6 +299,21 @@ export default class Home extends Component {
 
     }
 
+    async displayScore(){
+        await axios.put('http://localhost:4000/display/:DisplayId', {
+            Ordre: {
+                "Type": "Scoring",
+            },
+            date: Date.now(),
+        })
+            .then((reponse) => {
+                console.log(reponse);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
 
     initDisplayEventJSON(eventJSON) {
         let parsed = [];
@@ -354,19 +370,22 @@ export default class Home extends Component {
                         }
                     </Col>
                     <Col sm={5} style={{padding: "10px"}}>
+                        { this.state.displayFileList ?
                             <FileList files={this.state.files}
                                       updateCurrentFile={this.updateCurrentFile}
                                       modifyCurrentFile={this.modifyCurrentFile}
                                       deleteCurrentFile={this.deleteCurrentFile}
                                       importFile={this.importFile}
                             />
+                            : this.state.displayEventList ?
                             <EventList event={this.state.events}
                                        updateCurrentEvent={this.updateCurrentEvent}
                                        modifyCurrentEvent={this.modifyCurrentEvent}
                                        deleteCurrentEvent={this.deleteCurrentEvent}
                                        importEvent={this.importEvent}
                                        displayEvent={this.displayEvent}
-                            />
+                                       displayScore={this.displayScore}
+                            /> : null }
                     </Col>
                         {/*</Col>*/}
                 </Row>
