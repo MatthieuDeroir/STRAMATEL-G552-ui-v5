@@ -54,11 +54,11 @@ app.post("/upload", (req, res) => {
 routes(app);
 
 app.get('/', (req, res) =>
-    res.send(`Our Node app is running ${PORT}`)
+    res.send(`Le serveur G552 fonctionne sur le port : ${PORT}`)
 )
 
 app.listen(PORT, () =>
-    console.log(`Your Node server is running on port ${PORT}`)
+    console.log(`Le serveur G552 fonctionne sur le port : ${PORT}`)
 )
 
 // Fonction pour ajouter des roles dans la base de donnée

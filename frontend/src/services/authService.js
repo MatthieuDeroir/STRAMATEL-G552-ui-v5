@@ -24,6 +24,15 @@ class AuthService {
             roles
         });
     }
+
+    updateUser(_id, role){
+        let roles = [];
+        console.log(_id)
+        roles[0] = role;
+        return axios.put("http://localhost:4000/user/" + _id, {
+            roles
+        });
+    }
     getCurrentUser() {
         return JSON.parse(localStorage.getItem('user'));
     }

@@ -182,7 +182,7 @@ class App extends React.Component {
                 currentUser: user,
                 showAdminBoard: user.roles.includes("ROLE_ADMIN"),
                 showSuperuserBoard: user.roles.includes("ROLE_SUPERUSER"),
-                displayEventList: true
+                // displayEventList: true
             });
         }
 
@@ -484,10 +484,10 @@ class App extends React.Component {
                                 :
                                 <div>
                                     <Link to={"/login"} onClick={this.noDisplay}>
-                                        <BottomNavigationAction label="Profil" icon={<LoginIcon/>}/>
+                                        <BottomNavigationAction label="Profil" icon={<LoginIcon sx={{color: "white"}}/>}/>
                                     </Link>
                                     <Link to={"/register"}>
-                                        <BottomNavigationAction label="Créer un compte" icon={<PersonAddAlt/>}/>
+                                        <BottomNavigationAction label="Créer un compte" icon={<PersonAddAlt sx={{color: "white"}}/>}/>
                                     </Link>
                                 </div>
                             }

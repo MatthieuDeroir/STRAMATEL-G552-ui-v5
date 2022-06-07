@@ -101,18 +101,19 @@ export default class Register extends Component {
 
     render() {
         return (
-            <div className="col-md-12">
-                <div className="card card-container">
+            <div style={{margin:"10px", maxWidth:"350px", justifyContent:"center", color:"white", textAlign:"center", marginLeft:"auto", marginRight:"auto"}}>
+                <div className="card card-container flex-column" style={{borderRadius:"0", justifyContent:"center", textAlign:"center", backgroundColor:"#203038"}}>
                     <Form
                         onSubmit={this.handleRegister}
                         ref={c => {
                             this.form = c;
                         }}
                     >
+                        Créer un compte
                         {!this.state.successful && (
                             <div>
                                 <div className="form-group">
-                                    <label htmlFor="username">Username</label>
+                                    <label htmlFor="username">Nom d'utilisateur</label>
                                     <Input
                                         type="text"
                                         className="form-control"
@@ -123,7 +124,7 @@ export default class Register extends Component {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="password">Password</label>
+                                    <label htmlFor="password">Mot de passe</label>
                                     <Input
                                         type="password"
                                         className="form-control"
@@ -133,7 +134,7 @@ export default class Register extends Component {
                                         validations={[required, vpassword]}
                                     />
                                 </div>
-                                <InputLabel id="demo-simple-select-label">Select</InputLabel>
+                                <InputLabel id="demo-simple-select-label">Sélectionner un rôle</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"

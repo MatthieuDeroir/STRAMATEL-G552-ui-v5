@@ -33,6 +33,7 @@ export default class Home extends Component {
             currentEvent: [],
             fileForDisplay: "",
             eventForDisplay: "",
+            users: [],
 
             //template
             // JSONtemplate: {[
@@ -137,6 +138,8 @@ export default class Home extends Component {
             .catch((error) => {
                 console.log(error)
             });
+
+
     }
 
 
